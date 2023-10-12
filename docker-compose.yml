@@ -1,14 +1,11 @@
 version: '3'
 services:
   elasticsearch-master:
-    image: bitnami/elasticsearch:latest
+    image: bitnami/elasticsearch:7.10.2
     restart: on-failure
     container_name: elasticsearch-master
-    environment:
-      - ELASTICSEARCH_NODE_TYPE=master
-      - ELASTICSEARCH_CLUSTER_NAME=es-docker-cluster
-      - ELASTICSEARCH_NODE_NAME=elasticsearch-master
-      - ELASTICSEARCH_DISCOVERY_SERVICE=elasticsearch-master,elasticsearch-data1,elasticsearch-data2
+    volumes:
+      - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
     ulimits:
       memlock:
         soft: -1
@@ -22,51 +19,41 @@ services:
   elasticsearch-data1:
     depends_on:
       - elasticsearch-master
-    image: bitnami/elasticsearch:latest
+    image: bitnami/elasticsearch:7.10.2
     restart: on-failure
     container_name: elasticsearch-data1
-    environment:
-      - ELASTICSEARCH_NODE_TYPE=data
-      - ELASTICSEARCH_CLUSTER_NAME=es-docker-cluster
-      - ELASTICSEARCH_NODE_NAME=elasticsearch-data1
-      - ELASTICSEARCH_DISCOVERY_SERVICE=elasticsearch-master,elasticsearch-data1,elasticsearch-data2
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - data01:/usr/share/elasticsearch/data
+      - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
     networks:
       - elastic
 
   elasticsearch-data2:  # optional
     depends_on:
       - elasticsearch-master
-    image: bitnami/elasticsearch:latest
+    image: bitnami/elasticsearch:7.10.2
     restart: on-failure
     container_name: elasticsearch-data2
-    environment:
-      - ELASTICSEARCH_NODE_TYPE=data
-      - ELASTICSEARCH_CLUSTER_NAME=es-docker-cluster
-      - ELASTICSEARCH_NODE_NAME=elasticsearch-data2
-      - ELASTICSEARCH_DISCOVERY_SERVICE=elasticsearch-master,elasticsearch-data1,elasticsearch-data2
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - data02:/usr/share/elasticsearch/data
+      - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
     networks:
       - elastic
 
   kibana:
     depends_on:
       - elasticsearch-master
-    image: bitnami/kibana:latest
+    image: bitnami/kibana:7.10.2
     container_name: kibana
     restart: on-failure
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch-master:9200
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
     ports:
