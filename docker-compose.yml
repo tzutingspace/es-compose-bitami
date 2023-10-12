@@ -5,7 +5,7 @@ services:
     restart: on-failure
     container_name: elasticsearch-master
     volumes:
-      - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/my_elasticsearch.yml
     ulimits:
       memlock:
         soft: -1
@@ -28,7 +28,7 @@ services:
         hard: -1
     volumes:
       - data01:/usr/share/elasticsearch/data
-      - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/my_elasticsearch.yml
     networks:
       - elastic
 
@@ -44,7 +44,7 @@ services:
         hard: -1
     volumes:
       - data02:/usr/share/elasticsearch/data
-      - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/my_elasticsearch.yml
     networks:
       - elastic
 
@@ -54,6 +54,8 @@ services:
     image: bitnami/kibana:7.10.2
     container_name: kibana
     restart: on-failure
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch-master:9200
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
     ports:
