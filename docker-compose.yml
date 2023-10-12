@@ -5,19 +5,16 @@ services:
     restart: on-failure
     container_name: elasticsearch-master
     environment:
-      - node.name=elasticsearch-master
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=elasticsearch-master
-      - cluster.initial_master_nodes=elasticsearch-master
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTICSEARCH_NODE_TYPE=master
+      - ELASTICSEARCH_CLUSTER_NAME=es-docker-cluster
+      - ELASTICSEARCH_NODE_NAME=elasticsearch-master
+      - ELASTICSEARCH_DISCOVERY_SERVICE=elasticsearch-master,elasticsearch-data1,elasticsearch-data2
     ulimits:
       memlock:
         soft: -1
         hard: -1
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - 9200:9200
     networks:
       - elastic
 
@@ -28,10 +25,10 @@ services:
     restart: on-failure
     container_name: elasticsearch-data1
     environment:
-      - node.name=elasticsearch-data1
-      - cluster.name=es-docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTICSEARCH_NODE_TYPE=data
+      - ELASTICSEARCH_CLUSTER_NAME=es-docker-cluster
+      - ELASTICSEARCH_NODE_NAME=elasticsearch-data1
+      - ELASTICSEARCH_DISCOVERY_SERVICE=elasticsearch-master,elasticsearch-data1,elasticsearch-data2
     ulimits:
       memlock:
         soft: -1
@@ -48,10 +45,10 @@ services:
     restart: on-failure
     container_name: elasticsearch-data2
     environment:
-      - node.name=elasticsearch-data2
-      - cluster.name=es-docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTICSEARCH_NODE_TYPE=data
+      - ELASTICSEARCH_CLUSTER_NAME=es-docker-cluster
+      - ELASTICSEARCH_NODE_NAME=elasticsearch-data2
+      - ELASTICSEARCH_DISCOVERY_SERVICE=elasticsearch-master,elasticsearch-data1,elasticsearch-data2
     ulimits:
       memlock:
         soft: -1
