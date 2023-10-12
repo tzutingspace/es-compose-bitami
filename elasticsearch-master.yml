@@ -1,9 +1,28 @@
-cluster.name: elasticsearch
-node.master: true
-node.name: elasticsearch-master
-node.voting_only: false
-node.data: true
-node.ingest: true
-node.ml: false
-cluster.remote.connect: false
-cluster.initial_master_nodes: ["elasticsearch-master"]
+#cluster.name: elasticsearch
+#node.master: true
+#node.name: elasticsearch-master
+#node.data: true
+#node.ingest: true
+#cluster.remote.connect: false
+#cluster.initial_master_nodes: ["elasticsearch-master"]
+http:
+  port: 9200
+path:
+  data: /bitnami/elasticsearch/data
+transport:
+  tcp:
+    port: 9300
+network:
+  host: 0.0.0.0
+node:
+  name: elasticsearch-master
+  master: true
+  data: false
+  ingest: false
+cluster:
+  name: elasticsearch
+  initial_master_nodes: 
+    - elasticsearch-master
+discovery:
+  seed_hosts: ["elasticsearch-master"]
+
