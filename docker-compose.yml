@@ -6,11 +6,6 @@ services:
     container_name: elasticsearch-master
     volumes:
       - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/my_elasticsearch.yml
-    command: >
-      /bin/bash -c "
-      cat /opt/bitnami/elasticsearch/config/my_elasticsearch.yml >> /opt/bitnami/elasticsearch/config/elasticsearch.yml &&
-      /your/original/entrypoint/command
-      "
     ulimits:
       memlock:
         soft: -1
@@ -34,11 +29,6 @@ services:
     volumes:
       - data01:/usr/share/elasticsearch/data
       - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/my_elasticsearch.yml
-    command: >
-      /bin/bash -c "
-      cat /opt/bitnami/elasticsearch/config/my_elasticsearch.yml >> /opt/bitnami/elasticsearch/config/elasticsearch.yml &&
-      /your/original/entrypoint/command
-      "
     networks:
       - elastic
 
@@ -55,11 +45,6 @@ services:
     volumes:
       - data02:/usr/share/elasticsearch/data
       - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/my_elasticsearch.yml
-    command: >
-      /bin/bash -c "
-      cat /opt/bitnami/elasticsearch/config/my_elasticsearch.yml >> /opt/bitnami/elasticsearch/config/elasticsearch.yml &&
-      /your/original/entrypoint/command
-      "
     networks:
       - elastic
 
