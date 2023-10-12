@@ -55,7 +55,7 @@ services:
     container_name: kibana
     restart: on-failure
     environment:
-      - ELASTICSEARCH_URL=elasticsearch-master
+      - KIBANA_ELASTICSEARCH_URL=elasticsearch-master
     ports:
       - "5601:5601"
     networks:
