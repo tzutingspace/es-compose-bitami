@@ -22,7 +22,10 @@ services:
       - elastic
 
   elasticsearch-data1:
+    depends_on:
+      - elasticsearch-master
     image: bitnami/elasticsearch:latest
+    restart: on-failure
     container_name: elasticsearch-data1
     environment:
       - node.name=elasticsearch-data1
@@ -39,7 +42,10 @@ services:
       - elastic
 
   elasticsearch-data2:  # optional
+    depends_on:
+      - elasticsearch-master
     image: bitnami/elasticsearch:latest
+    restart: on-failure
     container_name: elasticsearch-data2
     environment:
       - node.name=elasticsearch-data2
@@ -56,6 +62,8 @@ services:
       - elastic
 
   kibana:
+    depends_on:
+      - elasticsearch-master
     image: bitnami/kibana:latest
     container_name: kibana
     restart: on-failure
