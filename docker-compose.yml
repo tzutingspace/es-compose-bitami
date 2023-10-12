@@ -1,7 +1,7 @@
 version: '3'
 services:
   elasticsearch-master:
-    image: bitnami/elasticsearch:7.10.2
+    image: bitnami/elasticsearch:7.4.2
     restart: on-failure
     container_name: elasticsearch-master
     volumes:
@@ -19,7 +19,7 @@ services:
   elasticsearch-data1:
     depends_on:
       - elasticsearch-master
-    image: bitnami/elasticsearch:7.10.2
+    image: bitnami/elasticsearch:7.4.2
     restart: on-failure
     container_name: elasticsearch-data1
     ulimits:
@@ -35,7 +35,7 @@ services:
   elasticsearch-data2:  # optional
     depends_on:
       - elasticsearch-master
-    image: bitnami/elasticsearch:7.10.2
+    image: bitnami/elasticsearch:7.4.2
     restart: on-failure
     container_name: elasticsearch-data2
     ulimits:
@@ -51,7 +51,7 @@ services:
   kibana:
     depends_on:
       - elasticsearch-master
-    image: bitnami/kibana:7.10.2
+    image: bitnami/kibana:7.4.2
     container_name: kibana
     restart: on-failure
     environment:
