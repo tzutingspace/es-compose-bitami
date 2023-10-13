@@ -2,7 +2,7 @@ version: '3'
 services:
   elasticsearch-master:
     image: bitnami/elasticsearch:7.4.2
-    restart: on-failure
+    # restart: on-failure
     container_name: elasticsearch-master
     volumes:
       - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
