@@ -2,14 +2,19 @@ version: '3'
 services:
   elasticsearch-master:
     image: bitnami/elasticsearch:7.4.2
+    restart: on-failure
     container_name: elasticsearch-master
+    entrypoint: ["sh", "/apps/docker-entrypoint-es-plugins.sh"]
     volumes:
       - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
+      - plugin_volume:/usr/share/elasticsearch/plugins
+      - .:/apps
     ulimits:
       memlock:
         soft: -1
         hard: -1
     environment:
+       - ELASTICSEARCH_PLUGINS=analysis-icu
        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ports:
       - 9200:9200
@@ -63,6 +68,8 @@ volumes:
   data01:
     driver: local
   data02:
+    driver: local
+  plugin_volume:
     driver: local
 
 networks:
