@@ -6,14 +6,13 @@ services:
     container_name: elasticsearch-master
     volumes:
       - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
-      - plugin_volume:/usr/share/elasticsearch/plugins
-      - ./init-script:/docker-entrypoint-initdb.d
+      # - plugin_volume:/opt/bitnami/elasticsearch/plugins
     ulimits:
       memlock:
         soft: -1
         hard: -1
     environment:
-       - ELASTICSEARCH_PLUGINS=analysis-icu,analysis-ik
+       - ELASTICSEARCH_PLUGINS=analysis-icu,repository-gcs
        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ports:
       - 9200:9200
