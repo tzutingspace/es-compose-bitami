@@ -24,8 +24,8 @@ if [ ! -d "$PLUGIN_DIR/analysis-smartcn" ]; then
 fi
 
 # 檢查並安裝 ingest-langdetect
-if [ ! -d "$PLUGIN_DIR/ingest-langdetect" ]; then
-  /opt/bitnami/elasticsearch/bin/elasticsearch-plugin install https://github.com/spinscale/elasticsearch-ingest-langdetect/releases/download/7.10.1.1/ingest-langdetect-7.10.1.1.zip
+if [ ! -d "$PLUGIN_DIR/analysis-ik" ]; then
+  /opt/bitnami/elasticsearch/bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.4.2/elasticsearch-analysis-ik-7.4.2.zip
 fi
 
 # 啟動 Elasticsearch
