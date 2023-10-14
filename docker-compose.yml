@@ -1,7 +1,10 @@
 version: '3'
 services:
   elasticsearch-master:
-    image: bitnami/elasticsearch:7.4.2
+    # image: bitnami/elasticsearch:7.4.2
+    build:
+      context: ./
+      dockerfile: Dockerfile
     # restart: on-failure
     container_name: elasticsearch-master
     volumes:
