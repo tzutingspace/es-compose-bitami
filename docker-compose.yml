@@ -14,7 +14,7 @@ services:
         hard: -1
     environment: &elasticsearch-common-env
       - ELASTICSEARCH_PLUGINS=analysis-icu,repository-gcs,discovery-gce
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ELASTICSEARCH_HEAP_SIZE=512m
     ports:
       - 9200:9200
       - 9300:9300
