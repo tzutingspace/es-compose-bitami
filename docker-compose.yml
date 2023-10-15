@@ -1,12 +1,4 @@
 version: '3'
-# elasticsearch-common-env: &elasticsearch-common-env
-#   - ELASTICSEARCH_PLUGINS=analysis-icu,repository-gcs,discovery-gce
-#   - ES_JAVA_OPTS=-Xms512m -Xmx512m
-
-# elasticsearch-common-ulimits: &elasticsearch-common-ulimits
-#   memlock:
-#     soft: -1
-#     hard: -1
 
 services:
   elasticsearch-master:
@@ -14,7 +6,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.elasticsearch-master
-    # restart: on-failure
+    restart: on-failure
     container_name: elasticsearch-master
     ulimits: &elasticsearch-common-ulimits
       memlock:
@@ -36,6 +28,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.elasticsearch-data
+    restart: on-failure
     container_name: elasticsearch-data1
     ulimits: *elasticsearch-common-ulimits
     environment: *elasticsearch-common-env
@@ -48,6 +41,7 @@ services:
     depends_on:
       - elasticsearch-master
     image: my-custom-elasticsearch-data:7.4.2
+    restart: on-failure
     container_name: elasticsearch-data2
     ulimits: *elasticsearch-common-ulimits
     environment: *elasticsearch-common-env
@@ -64,6 +58,7 @@ services:
       context: ./
       dockerfile: Dockerfile.kibana
     container_name: kibana
+    restart: on-failure
     environment:
       - KIBANA_ELASTICSEARCH_URL=elasticsearch-master
     ports:
