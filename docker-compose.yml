@@ -2,14 +2,14 @@ version: '3'
 services:
   elasticsearch-master:
     # image: bitnami/elasticsearch:7.4.2
-    image: my-custom-elasticsearch:7.4.2
+    image: my-custom-elasticsearch-master:7.4.2
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.elasticsearch-master
     # restart: on-failure
     container_name: elasticsearch-master
-    volumes:
-      - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
+    # volumes:
+      # - ./elasticsearch-master.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
       # - plugin_volume:/opt/bitnami/elasticsearch/plugins
     ulimits:
       memlock:
@@ -28,7 +28,10 @@ services:
     depends_on:
       - elasticsearch-master
     # image: bitnami/elasticsearch:7.4.2
-    image: my-custom-elasticsearch:7.4.2
+    image: my-custom-elasticsearch-data:7.4.2
+    build:
+      context: ./
+      dockerfile: Dockerfile.elasticsearch-data
     container_name: elasticsearch-data1
     ulimits:
       memlock:
@@ -39,7 +42,7 @@ services:
        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
       - data01:/usr/share/elasticsearch/data
-      - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
+      # - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
     networks:
       - elastic
 
@@ -47,7 +50,10 @@ services:
     depends_on:
       - elasticsearch-master
     # image: bitnami/elasticsearch:7.4.2
-    image: my-custom-elasticsearch:7.4.2
+    image: my-custom-elasticsearch-data:7.4.2
+    build:
+      context: ./
+      dockerfile: Dockerfile.elasticsearch-data
     container_name: elasticsearch-data2
     ulimits:
       memlock:
@@ -58,7 +64,7 @@ services:
        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
       - data02:/usr/share/elasticsearch/data
-      - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
+      # - ./elasticsearch-data.yml:/opt/bitnami/elasticsearch/config/elasticsearch.yml
     networks:
       - elastic
 
