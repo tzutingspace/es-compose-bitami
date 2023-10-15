@@ -6,5 +6,5 @@ RUN echo y | /opt/bitnami/kibana/bin/kibana-plugin install https://github.com/jo
 EXPOSE 5601
 
 USER 1001
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "/app-entrypoint.sh" ]
 CMD [ "/run.sh" ]
