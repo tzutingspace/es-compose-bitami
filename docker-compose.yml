@@ -37,10 +37,8 @@ services:
       context: ./
       dockerfile: Dockerfile.elasticsearch-data
     container_name: elasticsearch-data1
-    ulimits:
-      <<: *elasticsearch-common-ulimits
-    environment:
-       <<: *elasticsearch-common-env
+    ulimits: *elasticsearch-common-ulimits
+    environment: *elasticsearch-common-env
     volumes:
       - data01:/usr/share/elasticsearch/data
     networks:
@@ -51,10 +49,8 @@ services:
       - elasticsearch-master
     image: my-custom-elasticsearch-data:7.4.2
     container_name: elasticsearch-data2
-    ulimits:
-      <<: *elasticsearch-common-ulimits
-    environment:
-      <<: *elasticsearch-common-env
+    ulimits: *elasticsearch-common-ulimits
+    environment: *elasticsearch-common-env
     volumes:
       - data02:/usr/share/elasticsearch/data
     networks:
