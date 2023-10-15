@@ -1,12 +1,12 @@
 version: '3'
-elasticsearch-common-env: &elasticsearch-common-env
-  - ELASTICSEARCH_PLUGINS=analysis-icu,repository-gcs,discovery-gce
-  - ES_JAVA_OPTS=-Xms512m -Xmx512m
+# elasticsearch-common-env: &elasticsearch-common-env
+#   - ELASTICSEARCH_PLUGINS=analysis-icu,repository-gcs,discovery-gce
+#   - ES_JAVA_OPTS=-Xms512m -Xmx512m
 
-elasticsearch-common-ulimits: &elasticsearch-common-ulimits
-  memlock:
-    soft: -1
-    hard: -1
+# elasticsearch-common-ulimits: &elasticsearch-common-ulimits
+#   memlock:
+#     soft: -1
+#     hard: -1
 
 services:
   elasticsearch-master:
@@ -16,10 +16,13 @@ services:
       dockerfile: Dockerfile.elasticsearch-master
     # restart: on-failure
     container_name: elasticsearch-master
-    ulimits:
-      <<: *elasticsearch-common-ulimits
-    environment:
-      <<: *elasticsearch-common-env
+    ulimits: &elasticsearch-common-ulimits
+      memlock:
+        soft: -1
+        hard: -1
+    environment: &elasticsearch-common-env
+      - ELASTICSEARCH_PLUGINS=analysis-icu,repository-gcs,discovery-gce
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     ports:
       - 9200:9200
       - 9300:9300
