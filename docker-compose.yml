@@ -68,7 +68,11 @@ services:
   kibana:
     depends_on:
       - elasticsearch-master
-    image: bitnami/kibana:7.4.2
+    # image: bitnami/kibana:7.4.2
+    image: my-custom-kibana:7.4.2
+    build:
+      context: ./
+      dockerfile: Dockerfile.kibana
     container_name: kibana
     environment:
       - KIBANA_ELASTICSEARCH_URL=elasticsearch-master
