@@ -18,4 +18,5 @@ cluster:
     - elasticsearch-master
 discovery:
   seed_hosts: ["elasticsearch-master"]
+bootstrap.memory_lock: true
 
