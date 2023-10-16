@@ -15,6 +15,8 @@ services:
     environment: &elasticsearch-common-env
       - ELASTICSEARCH_PLUGINS=analysis-icu,repository-gcs,discovery-gce
       - ELASTICSEARCH_HEAP_SIZE=512m
+    volumes:
+      - ./credential.json:/
     ports:
       - 9200:9200
       - 9300:9300
